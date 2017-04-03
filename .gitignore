@@ -1,0 +1,53 @@
+#vim files
+*.vimrc
+
+#ephemeral files
+*.swp
+*.swo
+*.swn
+
+# Python cache
+__pycache__
+
+#R files
+*.RData
+*.Rhistory
+
+#aux and log files (tex)
+*.log
+*.aux
+
+#image or pdf files 
+*.pdf
+*.ps
+*.dvi
+*.jpg
+*.png
+*.tiff
+
+#tag files
+tags
+
+#object file and other c-compilation temp files
+*.o
+*.i
+*.s
+
+#temp files
+tmp[0-9]*
+
+#binaries or other compiled things
+a.out
+a.out.dSYM
+*.gch
+exec
+
+#zip files
+*.zip
+*.gz
+
+#misc
+/output
+/printAllIsoPoz4
+/output_info
+/poset
