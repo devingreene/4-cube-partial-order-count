@@ -13,6 +13,8 @@
    performs symmetry operations on the four-cube at the code level */
 
 static inline ui effof01(ui n,ui shift){
+	/* Effect on the encoding of swapping the 0
+	   and 1 bit at the genotype level */
 	n >>= shift;
 	ui a,b;
 	a=n&0x44;
@@ -23,6 +25,8 @@ static inline ui effof01(ui n,ui shift){
 }
 
 static inline ui effof210(ui n,ui shift,ui inv){
+	/* Effect on the encoding of permutation abcd -> adbc 
+	   at the genotype level */
 	n >>= shift;
 	ui a,b,c,d,e,f;
 	a = 0x2&n;
@@ -43,7 +47,7 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
 	ui a,b,c;
 	SPLIT_UP;
 	switch(pflip){
-		case 1:
+		case 1: // abcd -> badc
 			a = effof01(a,24);
 			b = effof01(b,16);
 			c = effof210(effof01(effof210(c,8,0),8),8,1);
@@ -51,7 +55,7 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
 			graph <<= 8;
 			graph += (a>>8) + (b<<8) + (c>>8);
 			break;
-		case 2:
+		case 2: // abcd -> cdab
 			a = effof210(a,24,1);
 			b = effof210(b,16,1);
 			c = effof210(c,8,0);
@@ -59,7 +63,7 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
 			graph <<= 16; 
 			graph += (a>>16) + (b>>16) + (c<<16);
 			break;
-		case 3:
+		case 3: // abcd -> dcba
 			a = effof210(effof01(effof210(a,24,1),24),24,0);
 			b = effof210(effof01(effof210(b,16,1),16),16,0);
 			c = effof210(effof01(effof210(c,8,1),8),8,0);
@@ -67,38 +71,38 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
 			graph <<= 24;
 			graph += (a>>24) + (b>>8) + (c<<8);
 			break;
-		default:
+		default: // identity
 			graph += a + b + c;
 			break;
 	}
 
 	SPLIT_UP;
 	switch(cycle){
-		case 1:
+		case 1: // abcd -> adbc
 			a=effof210(a,24,0);
 			b=effof01(b,16);
 			c=effof01(c,8);
 			graph <<= 16;
 			graph += a + (b>>8) + (c>>8);
 			break;
-		case 2:
+		case 2: // abcd -> acdb
 			a=effof210(a,24,1);
 			c=effof01(c,8);
 			graph=effof01(graph,0);
 			graph <<= 8;
 			graph += a + (b>>16) + (c<<8);
 			break;
-		default:
+		default: // identity
 			graph += a + b + c;
 	}	
 
 	SPLIT_UP;
-	if(tau){
+	if(tau){ // abcd -> bacd
 		c=effof210(effof01(effof210(c,8,0),8),8,1);	
 		graph = effof210(effof01(effof210(graph,0,0),0),0,1);
 		graph += c + (a>>8) + (b<<8);
 	}
-	else graph += a + b + c;
+	else graph += a + b + c; // identity
 
 	ui d;
 	if(xorop&0x1){
