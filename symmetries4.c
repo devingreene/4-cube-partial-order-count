@@ -2,10 +2,17 @@
 
 #define MAG 8
 
+#define SPLIT_UP \
+	a = 0xff000000&graph; \
+	b = 0x00ff0000&graph; \
+	c = 0x0000ff00&graph; \
+	graph &= 0x000000ff
+
+
 /* We encode four cube graphs with unsigned 32-bit integers.  This function
    performs symmetry operations on the four-cube at the code level */
 
-static ui effof01(ui n,ui shift){
+static inline ui effof01(ui n,ui shift){
 	n >>= shift;
 	ui a,b;
 	a=n&0x44;
@@ -15,7 +22,7 @@ static ui effof01(ui n,ui shift){
 	return n<<shift;
 }
 
-static ui effof210(ui n,ui shift,ui inv){
+static inline ui effof210(ui n,ui shift,ui inv){
 	n >>= shift;
 	ui a,b,c,d,e,f;
 	a = 0x2&n;
@@ -34,10 +41,7 @@ static ui effof210(ui n,ui shift,ui inv){
 
 ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
 	ui a,b,c;
-	a = 0xff000000&graph;
-	b = 0x00ff0000&graph;
-	c = 0x0000ff00&graph;
-	graph &= 0x000000ff;
+	SPLIT_UP;
 	switch(pflip){
 		case 1:
 			a = effof01(a,24);
@@ -64,14 +68,11 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
 			graph += (a>>24) + (b>>8) + (c<<8);
 			break;
 		default:
-				graph += a + b + c;
-				break;
+			graph += a + b + c;
+			break;
 	}
 
-	a = 0xff000000&graph;
-	b = 0x00ff0000&graph;
-	c = 0x0000ff00&graph;
-	graph &= 0x000000ff;
+	SPLIT_UP;
 	switch(cycle){
 		case 1:
 			a=effof210(a,24,0);
@@ -91,10 +92,7 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
 			graph += a + b + c;
 	}	
 
-	a = 0xff000000&graph;
-	b = 0x00ff0000&graph;
-	c = 0x0000ff00&graph;
-	graph &= 0x000000ff;
+	SPLIT_UP;
 	if(tau){
 		c=effof210(effof01(effof210(c,8,0),8),8,1);	
 		graph = effof210(effof01(effof210(graph,0,0),0),0,1);
@@ -102,12 +100,9 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
 	}
 	else graph += a + b + c;
 
-	a = 0xff000000&graph;
-	b = 0x00ff0000&graph;
-	c = 0x0000ff00&graph;
 	ui d;
-	graph &= 0x000000ff;
 	if(xorop&0x1){
+		SPLIT_UP;
 		a >>= 24;
 		d = a&0x55;
 		a -= d;
@@ -127,6 +122,7 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
 		graph += a + b + c;
 	}
 	if(xorop&0x2){
+		SPLIT_UP;
 		a >>= 24;
 		d = a&0x33;
 		a -= d;
@@ -144,6 +140,7 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
 		graph += a + b + c;
 	}
 	if(xorop&0x4){
+		SPLIT_UP;
 		a >>= 24;
 		d = a&0x0f;
 		a -= d;
@@ -161,6 +158,7 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
 		graph += a + b + c;
 	}
 	if(xorop&0x8){
+		SPLIT_UP;
 		a ^= 0xff000000;
 		b >>= 16;
 		d = b&0x0f;
@@ -180,8 +178,9 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
 	return graph;
 }
 
-static int _main(void) __attribute__((unused));
+/* static int _main(void) __attribute__((unused));
 static int _main() {
 	printf("%08x\n",symmetry(0x02000000,0,0,0,4));
 	return 0;
 }
+*/

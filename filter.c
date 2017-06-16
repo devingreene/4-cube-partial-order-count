@@ -1,6 +1,9 @@
 #include"headers.h"
 #include<signal.h>
 
+#define START_Q4 0x0
+#define NQ4 0X10000000
+
 extern void int2table(ui n);
 extern int IsPoset(void);
 extern ui symmetry(ui graph,uch pflip,uch tcycle,uch tau,uch xorop);
@@ -57,7 +60,7 @@ void filter (char *checklist){
 	sigaction(SIGQUIT,&sa,0);
 
 	unsigned long Graph,tgraph;
-	for(graph=0x0;graph<0x10000000;graph++){
+	for(graph=START_Q4;graph<NQ4;graph++){
 		if(checklist[graph]) continue;
 		Graph = fixbp2source(graph);
 		int2table(Graph);

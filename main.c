@@ -6,6 +6,7 @@
    bit is 0 if 0010 points to 0011, 1 otherwise.  The ninth least significant 
    bit is 0 if 0000 points to 0010, 1 otherwise.  The tenth least significant 
    is 0 if 0001 points to 0011, 1 otherwise, etc. */
+
 extern void initializePotable(void);
 extern void filter (char *checklist);
 extern int ** potable;

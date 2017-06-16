@@ -7,7 +7,7 @@ execs : printAllIsoPoz4
 createPermBlock.o : createPermBlock.c headers.h
 	cc  $(CFLAGS) -c $<
 printAllIsoPoz4 : int2table.o IsPoset.o main.o symmetries4.o filter.o
-	cc  $^ -o $@
+	cc  $(CFLAGS) $^ -o $@
 int2table.o : int2table.c headers.h
 	cc  $(CFLAGS) -c $<
 IsPoset.o : IsPoset.c headers.h

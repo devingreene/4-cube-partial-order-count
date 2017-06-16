@@ -1,19 +1,25 @@
 #vim files
 *.vimrc
+*.vim
 
 #ephemeral files
 *.swp
 *.swo
 *.swn
 
-# Python cache
+# Python cache/Python files
+# This is _C_ program, .py files 
+# are for diagnostics only.
+*.py
+*.pyc
 __pycache__
 
 #R files
 *.RData
 *.Rhistory
 
-#aux and log files (tex)
+#tex files and their droppings
+*.tex
 *.log
 *.aux
 
@@ -22,6 +28,7 @@ __pycache__
 *.ps
 *.dvi
 *.jpg
+*.jpeg
 *.png
 *.tiff
 
@@ -32,6 +39,7 @@ tags
 *.o
 *.i
 *.s
+*.gch
 
 #temp files
 tmp[0-9]*
@@ -39,15 +47,18 @@ tmp[0-9]*
 #binaries or other compiled things
 a.out
 a.out.dSYM
-*.gch
 exec
+/printAllIsoPoz4
 
 #zip files
 *.zip
 *.gz
 
+#shell scripts
+*.sh
+
 #misc
 /output
-/printAllIsoPoz4
 /output_info
 /poset
+/test
