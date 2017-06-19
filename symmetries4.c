@@ -24,50 +24,64 @@ static inline ui effof01(ui n,ui shift){
 	return n<<shift;
 }
 
-static inline ui effof210(ui n,ui shift,ui inv){
+static inline ui effof12(ui n, ui shift)
+{
+	n >>= shift;
+	ui a,b;
+	a = n&0x0c;
+	b = n&0x30;
+	n -= a + b;
+	n += (a<<2) + (b>>2);
+	return n<<shift;
+}
+
+
+static inline ui effof201(ui n,ui shift,ui inv)
+{
 	/* Effect on the encoding of permutation abcd -> adbc 
 	   at the genotype level */
 	n >>= shift;
 	ui a,b,c,d,e,f;
-	a = 0x2&n;
-	b = 0x10&n;
-	c = 0x4&n;
+	a = 0x40&n;
+	b = 0x20&n;
+	c = 0x10&n;
 	d = 0x8&n;
-	e = 0x20&n;
-	f = 0x40&n;
+	e = 0x4&n;
+	f = 0x2&n;
 	n -= a+b+c+d+e+f;
-	if(inv) n += (a<<1) + (c<<2) + (b>>3) +
-		(d<<3) + (f>>1) + (e>>2);
-	else n += (a << 3) + (b >> 2) + (c >> 1) +
-		(d << 2) + (e << 1) + ( f >> 3);
+	if(inv) n += (a>>1) + (b>>2) + (c>>3) + 
+		(d<<3) + (e<<2) + (f<<1);
+	else n += (a>>3) + (b<<1) + (c>>2) +
+		(d<<2) + (e>>1) + (f<<3);
 	return n << shift;
-}
+} 
 
-ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
+ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop)
+{
 	ui a,b,c;
 	SPLIT_UP;
 	switch(pflip){
 		case 1: // abcd -> badc
 			a = effof01(a,24);
 			b = effof01(b,16);
-			c = effof210(effof01(effof210(c,8,0),8),8,1);
-			graph = effof210(effof01(effof210(graph,0,0),0),0,1);
+			c = effof12(c,8);
+			graph = effof12(graph,0);
 			graph <<= 8;
 			graph += (a>>8) + (b<<8) + (c>>8);
 			break;
 		case 2: // abcd -> cdab
-			a = effof210(a,24,1);
-			b = effof210(b,16,1);
-			c = effof210(c,8,0);
-			graph = effof210(graph,0,0);
+			a = effof201(a,24,1);
+			b = effof201(b,16,1);
+			c = effof201(c,8,0);
+			graph = effof201(graph,0,0);
 			graph <<= 16; 
 			graph += (a>>16) + (b>>16) + (c<<16);
 			break;
 		case 3: // abcd -> dcba
-			a = effof210(effof01(effof210(a,24,1),24),24,0);
-			b = effof210(effof01(effof210(b,16,1),16),16,0);
-			c = effof210(effof01(effof210(c,8,1),8),8,0);
-			graph = effof210(effof01(effof210(graph,0,1),0),0,0);
+			a = effof01(effof201(a,24,0),24);
+			b = effof01(effof201(b,16,0),16);
+			c = effof01(effof201(c,8,0),8);
+			graph = effof01(effof201(graph,0,0),0);
 			graph <<= 24;
 			graph += (a>>24) + (b>>8) + (c<<8);
 			break;
@@ -79,14 +93,14 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
 	SPLIT_UP;
 	switch(cycle){
 		case 1: // abcd -> adbc
-			a=effof210(a,24,0);
+			a=effof201(a,24,0);
 			b=effof01(b,16);
 			c=effof01(c,8);
 			graph <<= 16;
 			graph += a + (b>>8) + (c>>8);
 			break;
 		case 2: // abcd -> acdb
-			a=effof210(a,24,1);
+			a=effof201(a,24,1);
 			c=effof01(c,8);
 			graph=effof01(graph,0);
 			graph <<= 8;
@@ -97,10 +111,11 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
 	}	
 
 	SPLIT_UP;
-	if(tau){ // abcd -> bacd
-		c=effof210(effof01(effof210(c,8,0),8),8,1);	
-		graph = effof210(effof01(effof210(graph,0,0),0),0,1);
-		graph += c + (a>>8) + (b<<8);
+	if(tau){ // ABCD -> ABDC
+		a = effof01(a,24);
+		b = effof01(b,16);
+		graph <<= 8;
+		graph += (c>>8) + a + b;
 	}
 	else graph += a + b + c; // identity
 
@@ -181,10 +196,3 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop){
 	}
 	return graph;
 }
-
-/* static int _main(void) __attribute__((unused));
-static int _main() {
-	printf("%08x\n",symmetry(0x02000000,0,0,0,4));
-	return 0;
-}
-*/

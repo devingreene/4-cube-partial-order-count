@@ -7,24 +7,16 @@
 int ** potable;
 static int * block;
 
+/* Set up partial order table for int2table */
 void initializePotable(void){
 	potable = malloc(CARD*sizeof(int*));
 	block = malloc(CARD*CARD*sizeof(int));
-}
-
-static ui thisreversemiddletwo(ui n){
-	ui a,b;
-	a = n&0x020;
-	b = n&0x040;
-	n &= 0xf9f;
-	return n + (a<<1) + (b>>1);
 }
 
 /* convert integer encoding of directed graph into directed
    adjancency table */
 void int2table(ui n)
 {
-	n = thisreversemiddletwo(n);
 	int nelt[CARD];
 	bzero(nelt,CARD*sizeof(int));
 	int *block0 = block;
