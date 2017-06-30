@@ -49,6 +49,7 @@ a.out
 a.out.dSYM
 exec
 /printAllIsoPoz4
+/printAllPoz4
 
 #zip files
 *.zip
@@ -62,3 +63,4 @@ exec
 /output_info
 /poset
 /test
+
