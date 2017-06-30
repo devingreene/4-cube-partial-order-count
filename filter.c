@@ -2,15 +2,18 @@
 #include<signal.h>
 
 #define START_Q4 0x0
+
+#ifndef NQ4
 #define NQ4 0X10000000
+#endif
 
 extern void int2table(ui n);
 extern int IsPoset(void);
 extern ui symmetry(ui graph,uch pflip,uch tcycle,uch tau,uch xorop);
-unsigned long graph;
+ui graph;
 
 void handler(void){
-	fprintf(stderr,"At %07lx\n",graph);
+	fprintf(stderr,"At %07x\n",graph);
 }
 
 int IsBaseSource(ui graph){
@@ -59,13 +62,13 @@ void filter (char *checklist){
 	sa.sa_handler=(void(*)(int))handler;	
 	sigaction(SIGQUIT,&sa,0);
 
-	unsigned long Graph,tgraph;
+	ui Graph,tgraph;
 	for(graph=START_Q4;graph<NQ4;graph++){
 		if(checklist[graph]) continue;
 		Graph = fixbp2source(graph);
 		int2table(Graph);
 		if(__glibc_unlikely(IsPoset())){
-			printf("%08lx\n",Graph);
+			printf("%08x\n",Graph);
 		}
 
 		/* flip through all symmetries */

@@ -1,5 +1,4 @@
-NONSOURCE := createPermBlock.o int2table.o IsPoset.o \
-			 main.o symmetries4.o filter.o 
+NONSOURCE := int2table.o IsPoset.o main.o symmetries4.o filter.o 
 
 .PHONY : execs
 execs : printAllIsoPoz4

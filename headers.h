@@ -7,6 +7,7 @@
 
 #define uch unsigned char
 #define ui unsigned int
+#define us unsigned short
 
 #define displayMatrix(matrix) { int i,j;\
 	for(i=0;i<16;i++){\
@@ -16,3 +17,8 @@
 		printf("%d\n",matrix[i][15]);\
 	}\
 }
+
+#ifndef NQ4
+#define NQ4 ((1<<28))
+#endif
+

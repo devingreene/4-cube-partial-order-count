@@ -8,12 +8,16 @@
    is 0 if 0001 points to 0011, 1 otherwise, etc. */
 
 extern void initializePotable(void);
-extern void filter (char *checklist);
+
+void filter (uch *checklist);
+
 extern int ** potable;
 
 int main(void){
 	initializePotable();
-	char *checklist=calloc(0x10000000,sizeof(char));
+
+	uch *checklist=calloc(1<<28,sizeof(char));
+
 	filter(checklist);
 	return 0;
 }

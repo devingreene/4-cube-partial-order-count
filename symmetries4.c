@@ -12,6 +12,8 @@
 /* We encode four cube graphs with unsigned 32-bit integers.  This function
    performs symmetry operations on the four-cube at the code level */
 
+/* TODO: Explain these functions! */
+
 static inline ui effof01(ui n,ui shift){
 	/* Effect on the encoding of swapping the 0
 	   and 1 bit at the genotype level */
@@ -25,6 +27,8 @@ static inline ui effof01(ui n,ui shift){
 }
 
 static inline ui effof12(ui n, ui shift)
+/* This is equivalent to conjugating 
+   effof01 with effof201 */
 {
 	n >>= shift;
 	ui a,b;
@@ -35,11 +39,8 @@ static inline ui effof12(ui n, ui shift)
 	return n<<shift;
 }
 
-
 static inline ui effof201(ui n,ui shift,ui inv)
 {
-	/* Effect on the encoding of permutation abcd -> adbc 
-	   at the genotype level */
 	n >>= shift;
 	ui a,b,c,d,e,f;
 	a = 0x40&n;
