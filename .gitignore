@@ -49,6 +49,7 @@ a.out
 a.out.dSYM
 exec
 /printAllIsoPoz4
+/countAllPoz4
 
 #zip files
 *.zip
@@ -62,3 +63,6 @@ exec
 /output_info
 /poset
 /test
+
+#Ignore development files
+*_grain*
