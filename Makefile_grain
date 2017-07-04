@@ -1,0 +1,28 @@
+INTERMEDIATES := int2table.o IsPoset.o main.o symmetries4.o filter_grain.o 
+
+.PHONY : execs
+	execs : countAllPoz4
+
+ifeq ($(CFLAGS),-ggdb)
+OPTIMIZATION_OPT =
+else 
+OPTIMIZATION_OPT = -O3
+endif
+
+EX_CFLAGS := $(CFLAGS) -DGRAIN $(OPTIMIZATION_OPT)
+	
+countAllPoz4 : int2table.o IsPoset.o main.o symmetries4.o filter_grain.o
+	cc -Wall $(EX_CFLAGS) $^ -o $@
+int2table.o : int2table.c headers.h
+	cc -Wall $(EX_CFLAGS) -c $<
+IsPoset.o : IsPoset.c headers.h
+	cc -Wall $(EX_CFLAGS) -c $<
+main.o : main.c headers.h
+	cc -Wall $(EX_CFLAGS) -c $<
+symmetries4.o : symmetries4.c headers.h
+	cc -Wall $(EX_CFLAGS) -c $<
+filter_grain.o : filter_grain.c headers.h
+	cc -Wall $(EX_CFLAGS) -c $<
+
+clean : 
+	rm -f $(INTERMEDIATES)
