@@ -5,6 +5,10 @@
 #define START_Q4 0x0
 #endif
 
+#ifndef NQ4
+#define NQ4 0x10000000
+#endif
+
 #define GROUP_CARD 384
 
 extern void int2table(ui n);
@@ -49,7 +53,7 @@ ui invfixbp2source(ui graph){
 		1. Allocate table of size 2^28 corresponding to graph with 0000
 		as the base.  
 		2. For each entry: 
-			a. Check off (set equal to 1) if contains cycles. 
+			a. Check off (set equal to 1) it if contains cycles. 
 		   	b. Take all 384 group transformations.  Of these,
 				if any have 0000 as base, and lie further down the table,
 				check off that element of the table (set value to -1)

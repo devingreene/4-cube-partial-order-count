@@ -9,6 +9,7 @@ else
 OPTIMIZATION_OPT = -O3
 endif
 
+# Does this GRAIN play any role?  Grepped and couldn't find it!
 EX_CFLAGS := $(CFLAGS) -DGRAIN $(OPTIMIZATION_OPT)
 	
 countAllPoz4 : int2table.o IsPoset.o main.o symmetries4.o filter_grain.o
