@@ -2,7 +2,10 @@
 #include<signal.h>
 
 #define START_Q4 0x0
+/* Truncate series for testing */
+#ifndef NQ4
 #define NQ4 0X10000000
+#endif
 
 extern void int2table(ui n);
 extern int IsPoset(void);

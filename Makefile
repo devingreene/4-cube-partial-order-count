@@ -14,8 +14,17 @@ printAllIsoPoz4 : int2table.o IsPoset.o main.o symmetries4.o filter.o
 	cc -Wall  $(CFLAGS) $(OPTIMIZATION_OPT) $^ -o $@
 int2table.o : int2table.c headers.h
 	cc -Wall  $(CFLAGS) $(OPTIMIZATION_OPT) -c $<
-IsPoset.o : IsPoset.c headers.h
-	cc -Wall  $(CFLAGS) $(OPTIMIZATION_OPT) -c $<
+
+ifeq ($(POSET1),)
+POSET_C = IsPoset.c
+else
+POSET_C = IsPoset1.c
+endif
+
+IsPoset.o : $(POSET_C) headers.h
+	cc -Wall  $(CFLAGS) $(OPTIMIZATION_OPT) -c $< -o $@
+	$(info NB! Compiling $(POSET_C)!)
+
 main.o : main.c headers.h
 	cc -Wall  $(CFLAGS) $(OPTIMIZATION_OPT) -c $<
 symmetries4.o : symmetries4.c headers.h
