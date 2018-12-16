@@ -6,7 +6,7 @@ execs : printAllIsoPoz4
 ifeq ($(CFLAGS),-ggdb)
 OPTIMIZATION_OPT=
 else 
-OPTIMIZATION_OPT = -O3
+OPTIMIZATION_OPT = -O2
 endif
 	
 printAllIsoPoz4 : int2table.o IsPoset.o main.o symmetries4.o filter.o
