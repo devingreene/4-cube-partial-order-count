@@ -14,10 +14,10 @@ void filter (uch *checklist);
 extern int ** potable;
 
 int main(void){
-	initializePotable();
+    initializePotable();
 
-	uch *checklist=calloc(1<<28,sizeof(char));
+    uch *checklist=calloc(1<<28,sizeof(char));
 
-	filter(checklist);
-	return 0;
+    filter(checklist);
+    return 0;
 }
