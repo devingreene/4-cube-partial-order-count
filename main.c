@@ -1,11 +1,26 @@
 #include"headers.h"
 #include<signal.h>
 
-/* Each directed graph is encoded as a 32-bit word.  The least significant
-   bit is 0 if 0000 points to 0001, 1 otherwise.  The second least significant
-   bit is 0 if 0010 points to 0011, 1 otherwise.  The ninth least significant 
-   bit is 0 if 0000 points to 0010, 1 otherwise.  The tenth least significant 
-   is 0 if 0001 points to 0011, 1 otherwise, etc. */
+/* Each directed graph is encoded as a 32-bit word.  The nth least significant
+ * represents the direction of the arrow on an edge as follows.  Write n as
+ * 8*k+r.  The number k corresponds, from right to left, the position of the bit
+ * on the 4-bit string which changes upon traversal of the edge.  Removing that
+ * bit from the string results in the remaining fixed three bits.  Viewed as a
+ * 3-bit string, this corresponds to a number from 0 from 7, to which k
+ * corresponds.  The value of nth bit is then set to zero if the arrow goes from
+ * bit 0 to 1, and 1 otherwise.  
+ *  
+ * To take an example, suppose we have a 4-cube whose partial order which
+ * inherits its order from the following linear order:
+ *
+ * 
+ * 0111 < 0110 < 1100 < 0010 < 0100 < 0001 < 1001 < 0000 < 1010 < 1011 < 1110 <
+ * 1111 < 0101 < 1101 < 0011 < 1000
+ * 
+ *
+ * The bit encoding for this is then 00011001100111010001110100011000.
+ *
+ */
 
 extern void initializePotable(void);
 
