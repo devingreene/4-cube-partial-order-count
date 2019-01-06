@@ -64,7 +64,7 @@ void filter (char *checklist){
 
     ui Graph,tgraph;
     for(graph=START_Q4;graph<NQ4;graph++){
-        if(checklist[graph]) continue;
+        if(__glibc_likely(checklist[graph])) continue;
         Graph = fixbp2source(graph);
         int2table(Graph);
         if(__glibc_unlikely(IsPoset())){
@@ -78,7 +78,7 @@ void filter (char *checklist){
                 for(tau=0;tau<2;tau++)
                     for(xorop=0;xorop<16;xorop++){
                         tgraph = symmetry(Graph,pflip,tcycle,tau,xorop);
-                        if(IsBaseSource(tgraph)){
+                        if(__glibc_unlikely(IsBaseSource(tgraph))){
                             tgraph = invfixbp2source(tgraph);
                             if(tgraph > graph)
                                 checklist[tgraph]=1;

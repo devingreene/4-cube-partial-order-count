@@ -15,7 +15,7 @@ static int lookAhead(int start,int *hot,int nhot){
     int i,j,product=1;
     for(i=0;potable[start][i]!=-1;i++){
         for(j=0;j<nhot-1;j++){
-            if(potable[start][i]==hot[j]){
+            if(__glibc_unlikely(potable[start][i]==hot[j])){
                 flag=1;
                 return 0;
             }
