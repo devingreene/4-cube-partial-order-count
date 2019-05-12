@@ -1,4 +1,4 @@
-NONSOURCE := int2table.o IsPoset.o main.o symmetries4.o filter.o 
+NONSOURCE := int2table.o IsPoset.o main.o symmetries4.o filter.o filter_stanley.o
 
 .PHONY : execs
 execs : printAllIsoPoz4
@@ -13,9 +13,15 @@ ifdef COVERAGE
 OPTIMIZATION_OPT =
 endif
 
+ifdef STANLEY
+FILTER=filter_stanley
+else
+FILTER=filter
+endif
+
 WARNINGS = -Wall -Wextra -Werror
-	
-printAllIsoPoz4 : int2table.o IsPoset.o main.o symmetries4.o filter.o
+
+printAllIsoPoz4 : int2table.o IsPoset.o main.o symmetries4.o $(FILTER).o
 	cc $(WARNINGS) $(CFLAGS) $(OPTIMIZATION_OPT) $^ -o $@ $(COVERAGE)
 int2table.o : int2table.c headers.h
 	cc $(WARNINGS) $(CFLAGS) $(OPTIMIZATION_OPT) -c $< $(COVERAGE)
@@ -25,8 +31,8 @@ main.o : main.c headers.h
 	cc $(WARNINGS) $(CFLAGS) $(OPTIMIZATION_OPT) -c $< $(COVERAGE)
 symmetries4.o : symmetries4.c headers.h
 	cc $(WARNINGS) $(CFLAGS) $(OPTIMIZATION_OPT) -c $< $(COVERAGE)
-filter.o : filter.c headers.h
+$(FILTER).o : $(FILTER).c headers.h
 	cc $(WARNINGS) $(CFLAGS) $(OPTIMIZATION_OPT) -c $< $(COVERAGE)
 
-clean : 
+clean :
 	rm -f $(NONSOURCE)
