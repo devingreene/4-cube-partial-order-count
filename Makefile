@@ -9,26 +9,24 @@ else
 OPTIMIZATION_OPT = -O2
 endif
 
-ifeq ($(COVERAGE),--coverage)
+ifdef COVERAGE
 OPTIMIZATION_OPT =
-else
-OPTIMIZATION_OPT = -O2
 endif
 
 WARNINGS = -Wall -Wextra -Werror
 	
 printAllIsoPoz4 : int2table.o IsPoset.o main.o symmetries4.o filter.o
-	cc $(WARNINGS) $(COVERAGE) $(CFLAGS) $(OPTIMIZATION_OPT) $^ -o $@
+	cc $(WARNINGS) $(CFLAGS) $(OPTIMIZATION_OPT) $^ -o $@ $(COVERAGE)
 int2table.o : int2table.c headers.h
-	cc $(WARNINGS) $(COVERAGE) $(CFLAGS) $(OPTIMIZATION_OPT) -c $<
+	cc $(WARNINGS) $(CFLAGS) $(OPTIMIZATION_OPT) -c $< $(COVERAGE)
 IsPoset.o : IsPoset.c headers.h
-	cc $(WARNINGS) $(COVERAGE) $(CFLAGS) $(OPTIMIZATION_OPT) -c $<
+	cc $(WARNINGS) $(CFLAGS) $(OPTIMIZATION_OPT) -c $< $(COVERAGE)
 main.o : main.c headers.h
-	cc $(WARNINGS) $(COVERAGE) $(CFLAGS) $(OPTIMIZATION_OPT) -c $<
+	cc $(WARNINGS) $(CFLAGS) $(OPTIMIZATION_OPT) -c $< $(COVERAGE)
 symmetries4.o : symmetries4.c headers.h
-	cc $(WARNINGS) $(COVERAGE) $(CFLAGS) $(OPTIMIZATION_OPT) -c $<
+	cc $(WARNINGS) $(CFLAGS) $(OPTIMIZATION_OPT) -c $< $(COVERAGE)
 filter.o : filter.c headers.h
-	cc $(WARNINGS) $(COVERAGE) $(CFLAGS) $(OPTIMIZATION_OPT) -c $<
+	cc $(WARNINGS) $(CFLAGS) $(OPTIMIZATION_OPT) -c $< $(COVERAGE)
 
 clean : 
 	rm -f $(NONSOURCE)
