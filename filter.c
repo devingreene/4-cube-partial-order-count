@@ -58,10 +58,6 @@ ui invfixbp2source(ui graph){
     This reduces the number of iterations from 2**32 to 2**28. */
 
 void filter (char *checklist){
-    struct sigaction sa;
-    sa.sa_handler=(void(*)(int))handler;    
-    sigaction(SIGQUIT,&sa,0);
-
     ui Graph,tgraph;
     for(graph=START_Q4;graph<NQ4;graph++){
         if(__glibc_likely(checklist[graph])) continue;
