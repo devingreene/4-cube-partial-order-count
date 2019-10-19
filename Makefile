@@ -1,4 +1,5 @@
-NONSOURCE := int2table.o IsPoset.o main.o symmetries4.o filter.o filter_stanley.o
+NONSOURCE := int2table.o IsPoset.o main.o symmetries4.o filter.o \
+    filter_stanley.o printAllIsoPoz4
 
 .PHONY : execs
 execs : printAllIsoPoz4

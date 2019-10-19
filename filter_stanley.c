@@ -78,10 +78,10 @@ void filter (char *checklist){
     ui count = 0;
     ui nfge; // number of fixing group elements
     for(graph=START_Q4;graph<NQ4;graph++){
-        if(__glibc_likely(checklist[graph])) continue;
+        if(likely(checklist[graph])) continue;
         Graph = fixbp2source(graph);
         int2table(Graph);
-        if(__glibc_likely(!IsPoset())) continue;
+        if(likely(!IsPoset())) continue;
 
         /* flip through all symmetries */
         uch pflip,tcycle,tau,xorop;
@@ -92,7 +92,7 @@ void filter (char *checklist){
                     for(xorop=0;xorop<16;xorop++){
                         tgraph = symmetry(Graph,pflip,tcycle,tau,xorop);
                         nfge += ( tgraph == Graph );
-                        if(__glibc_unlikely(IsBaseSource(tgraph))){
+                        if(unlikely(IsBaseSource(tgraph))){
                             tgraph = invfixbp2source(tgraph);
                             if(tgraph > graph)
                                 checklist[tgraph]=1;
