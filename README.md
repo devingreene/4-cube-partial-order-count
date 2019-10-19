@@ -4,7 +4,7 @@ For best results (and least irritation), create a directory or folder with a nam
 
 <tt>$ make</tt>
 
-To clean up the object files involved in building these binaries, do this.
+To clean up the object files as well as the binaries, do this.
 
 <tt>$ make clean</tt>
 
