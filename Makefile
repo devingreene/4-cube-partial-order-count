@@ -20,7 +20,7 @@ else
 FILTER=filter
 endif
 
-WARNINGS = -Wall -Wextra -Werror
+WARNINGS = -Wall -Wextra
 
 printAllIsoPoz4 : int2table.o IsPoset.o main.o symmetries4.o $(FILTER).o
 	cc $(WARNINGS) $(CFLAGS) $(OPTIMIZATION_OPT) $^ -o $@ $(COVERAGE)

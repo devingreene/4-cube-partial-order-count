@@ -24,8 +24,7 @@
 
 extern void initializePotable(void);
 extern void freePotable(void);
-
-void filter (void);
+extern void filter (ui start, ui end);
 
 extern int ** potable;
 
@@ -34,8 +33,8 @@ uch *checklist;
 int main(void){
     initializePotable();
 
-    checklist=calloc(1<<(28-3),sizeof(char));
+    checklist=calloc(1<<25,sizeof(char));
 
-    filter();
+    filter(0,1<<28);
     return 0;
 }

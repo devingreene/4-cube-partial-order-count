@@ -58,9 +58,9 @@ ui invfixbp2source(ui graph){
     orders, we fix our search set to those graphs where 0000 is a source.
     This reduces the number of iterations from 2**32 to 2**28. */
 
-void filter (void){
+void filter (ui start, ui end){
     ui Graph,tgraph;
-    for(graph=START_Q4;graph<NQ4;graph++){
+    for(graph=start;graph<end;graph++){
         if(likely(isset(graph))) continue;
         Graph = fixbp2source(graph);
         int2table(Graph);
