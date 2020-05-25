@@ -10,6 +10,7 @@
 extern void int2table(ui n);
 extern int IsPoset(void);
 extern ui symmetry(ui graph,uch pflip,uch tcycle,uch tau,uch xorop);
+extern uch *checklist;
 ui graph;
 
 void handler(void){
@@ -57,10 +58,10 @@ ui invfixbp2source(ui graph){
     orders, we fix our search set to those graphs where 0000 is a source.
     This reduces the number of iterations from 2**32 to 2**28. */
 
-void filter (char *checklist){
+void filter (void){
     ui Graph,tgraph;
     for(graph=START_Q4;graph<NQ4;graph++){
-        if(likely(checklist[graph])) continue;
+        if(likely(isset(graph))) continue;
         Graph = fixbp2source(graph);
         int2table(Graph);
         if(unlikely(IsPoset())){
@@ -77,7 +78,7 @@ void filter (char *checklist){
                         if(unlikely(IsBaseSource(tgraph))){
                             tgraph = invfixbp2source(tgraph);
                             if(tgraph > graph)
-                                checklist[tgraph]=1;
+                                setbit(tgraph);
                         }
                     }       
     }

@@ -25,17 +25,17 @@
 extern void initializePotable(void);
 extern void freePotable(void);
 
-void filter (uch *checklist);
+void filter (void);
 
 extern int ** potable;
+
+uch *checklist;
 
 int main(void){
     initializePotable();
 
-    uch *checklist=calloc(1<<28,sizeof(char));
+    checklist=calloc(1<<(28-3),sizeof(char));
 
-    filter(checklist);
-    freePotable();
-    free(checklist);
+    filter();
     return 0;
 }

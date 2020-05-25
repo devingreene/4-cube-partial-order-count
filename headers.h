@@ -29,3 +29,12 @@
 #define NQ4 ((1<<28))
 #endif
 
+#define setbit(n) \
+{   \
+    checklist[n/8] &= (1 << (n % 8)); \
+}
+
+#define isset(n) \
+{   \
+    checklist[n/8] & ( 1 << (n % 8)); \
+}

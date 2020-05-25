@@ -13,11 +13,6 @@ void initializePotable(void){
 	block = (int*)malloc(CARD*CARD*sizeof(int));
 }
 
-void freePotable(void){
-    free(potable);
-    free(block);
-}
-
 /* convert integer encoding of directed graph into directed
    adjacency table.  See main.c for a description of the integer
    encoding */
