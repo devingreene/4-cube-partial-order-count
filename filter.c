@@ -1,21 +1,11 @@
 #include"headers.h"
 #include<signal.h>
 
-#define START_Q4 0x0
-
-#ifndef NQ4
-#define NQ4 0X10000000
-#endif
-
 extern void int2table(ui n);
 extern int IsPoset(void);
 extern ui symmetry(ui graph,uch pflip,uch tcycle,uch tau,uch xorop);
 extern uch *checklist;
 ui graph;
-
-void handler(void){
-    fprintf(stderr,"At %07x\n",graph);
-}
 
 int IsBaseSource(ui graph){
     return !(0x01010101&graph);
@@ -50,7 +40,7 @@ ui invfixbp2source(ui graph){
     return graph + a + b + c;
 }
 
-/* This routine marches through each directed graph on Q4.  If it is
+/* This routine marches through each directed graph.  If it is
    not a partial order, or if it is an isomorphic copy of a previous checked
    graph, we mark this in the 'checklist' so we can skip it when we get to it.
 

@@ -28,6 +28,7 @@ extern void filter (ui start, ui end);
 
 extern int ** potable;
 
+/* Bitfield for marking redundant graphs */
 uch *checklist;
 
 int main(void){

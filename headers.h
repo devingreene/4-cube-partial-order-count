@@ -1,6 +1,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
+
 #ifdef GNU_LINUX
 #include<error.h>
 #include<errno.h>
@@ -8,7 +9,6 @@
 #define likely(arg) __glibc_likely(arg)
 #define unlikely(arg) __glibc_unlikely(arg)
 #else
-#warning "Not using GNU_LINUX branch predictors"
 #define likely(arg) __builtin_expect((arg),1)
 #define unlikely(arg) __builtin_expect((arg),0)
 #endif
@@ -25,10 +25,6 @@
 		printf("%d\n",matrix[i][15]);\
 	}\
 }
-
-#ifndef NQ4
-#define NQ4 ((1<<28))
-#endif
 
 #define setbit(n) \
 {   \
