@@ -6,7 +6,7 @@
  * 8*k+r.  The number k corresponds, from right to left, the position of the bit
  * on the 4-bit string which changes upon traversal of the edge.  Removing that
  * bit from the string results in the remaining fixed three bits.  Viewed as a
- * 3-bit string, this corresponds to a number from 0 from 7, to which k
+ * 3-bit string, this corresponds to a number from 0 from 7, to which r
  * corresponds.  The value of nth bit is then set to zero if the arrow goes from
  * bit 0 to 1, and 1 otherwise.  
  *  
