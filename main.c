@@ -18,7 +18,7 @@
  * 1111 < 0101 < 1101 < 0011 < 1000
  * 
  *
- * The bit encoding for this is then 00011001100111010001110100011000.
+ * The bit encoding for this is then 00011000000111011001110100011001.
  *
  */
 
