@@ -1,4 +1,0 @@
-These are a set of utilities for processing and analyzing the output of printAllIsoPoz4.  One can use these to construct a database showing for each fitness landscape:
-
-a) Whether or not it must have 4-way epistasis
-b) How many peaks it has.
