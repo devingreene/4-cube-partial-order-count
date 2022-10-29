@@ -17,15 +17,6 @@
 #define ui unsigned int
 #define us unsigned short
 
-#define displayMatrix(matrix) { int i,j;\
-	for(i=0;i<16;i++){\
-		for(j=0;j<15;j++){\
-			printf("%d ",matrix[i][j]);\
-		}\
-		printf("%d\n",matrix[i][15]);\
-	}\
-}
-
 #define setbit(n) \
 {   \
     checklist[n/8] |= (1 << (n % 8)); \
