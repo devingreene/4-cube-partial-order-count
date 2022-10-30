@@ -13,7 +13,7 @@
 
 #ifndef NQ4
 /* Number of graphs with 0000 source */
-#define NQ4 0X10000000 
+#define NQ4 0X10000000
 #endif
 
 extern void int2table(ui n);
@@ -61,7 +61,7 @@ ui invfixbp2source(ui graph){
 
 void filter (char *checklist){
     struct sigaction sa;
-    sa.sa_handler=(void(*)(int))handler;    
+    sa.sa_handler=(void(*)(int))handler;
     sigaction(SIGQUIT,&sa,0);
 
     ui Graph,tgraph;
@@ -73,7 +73,7 @@ void filter (char *checklist){
      *
      *  We use a hash table checklist.  If a graph has already been
      *  seen, we skip it.
-     */  
+     */
 
     ui count = 0;
     ui nfge; // number of fixing group elements
@@ -97,7 +97,7 @@ void filter (char *checklist){
                             if(tgraph > graph)
                                 checklist[tgraph]=1;
                         }
-                    }       
+                    }
         assert(G % nfge == 0);
         count += G/nfge;
     }

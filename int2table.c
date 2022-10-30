@@ -36,7 +36,7 @@ void int2table(ui n)
 			bit = (1<<pos);
 			a = margin&(bit-1);
 			b = margin - a;
-			b <<= 1; 
+			b <<= 1;
                         /* a is pre-insert output; */
 			a += b;
 

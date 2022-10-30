@@ -36,9 +36,9 @@
  * directed graph on the cube. */
 
 static inline ui effof01(ui n,ui shift){
-    /* 
+    /*
      * On background: xyz -> xzy
-     * Effect on edge mask: 76543210 -> 7563120 
+     * Effect on edge mask: 76543210 -> 75643120
      */
     n >>= shift;
     ui a,b;
@@ -50,7 +50,7 @@ static inline ui effof01(ui n,ui shift){
 }
 
 static inline ui effof12(ui n, ui shift)
-    /* 
+    /*
      * On background: xyz -> yxz
      * Effect on edge mask: 76543210 -> 76325410
      */
@@ -69,7 +69,7 @@ static inline ui effof201(ui n,ui shift,ui inv)
     /*
      * !inv on background: xyz -> zxy
      * Effect on edge mask: 76543210 -> 73625140
-     */ 
+     */
     n >>= shift;
     ui a,b,c,d,e,f;
     a = 0x40&n;
@@ -79,12 +79,12 @@ static inline ui effof201(ui n,ui shift,ui inv)
     e = 0x4&n;
     f = 0x2&n;
     n -= a+b+c+d+e+f;
-    if(inv) n += (a>>1) + (b>>2) + (c>>3) + 
+    if(inv) n += (a>>1) + (b>>2) + (c>>3) +
         (d<<3) + (e<<2) + (f<<1);
     else n += (a>>3) + (b<<1) + (c>>2) +
         (d<<2) + (e>>1) + (f<<3);
     return n << shift;
-} 
+}
 
 ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop)
 {
@@ -104,7 +104,7 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop)
             b = effof201(b,16,1);
             c = effof201(c,8,0);
             graph = effof201(graph,0,0);
-            graph <<= 16; 
+            graph <<= 16;
             graph += (a>>16) + (b>>16) + (c<<16);
             break;
         case 3: // 3210 -> 0123
@@ -138,7 +138,7 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop)
             break;
         default: // identity
             graph += a + b + c;
-    }   
+    }
 
     SPLIT_UP;
     if(tau){ // 3210 -> 3201

@@ -12,7 +12,7 @@ int IsBaseSource(ui graph){
 }
 
 /* We loop over graphs with 0000 as a source.  So we can encode our graphs
-   with 28 bit words.  The following two functions convert back and forth 
+   with 28 bit words.  The following two functions convert back and forth
    from the 28 bit representation to the 32 bit one */
 ui fixbp2source(ui graph){
     ui a,b,c;
@@ -70,6 +70,6 @@ void filter (ui start, ui end){
                             if(tgraph > graph)
                                 setbit(tgraph);
                         }
-                    }       
+                    }
     }
 }

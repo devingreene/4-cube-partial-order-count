@@ -4,8 +4,8 @@
 
 extern int **potable;
 /* When one of the branches of the recursive call hits a loop,
-   we want to tell the other instances of 'lookAhead' to return 
-   zero.  We do this by setting 'flag' to one, which tells the 
+   we want to tell the other instances of 'lookAhead' to return
+   zero.  We do this by setting 'flag' to one, which tells the
    other recursive branches to return zero immediately. */
 
 static int flag=0;
