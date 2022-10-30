@@ -11,7 +11,8 @@ To clean up the object files as well as the binaries, do this.
 Unit testing on the group operations used in the main routine can be done as follows.
 
 <tt>$ make test</tt>
-<tt>$ ./tester.py
+
+<tt>$ ./tester.py</tt>
 
 # What This Software Computes
 
