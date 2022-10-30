@@ -226,3 +226,81 @@ ui symmetry(ui graph,ui pflip,ui cycle,ui tau,ui xorop)
     }
     return graph;
 }
+
+#ifdef TESTING_b534ff4f
+enum group_op_type {
+    PFLIP,
+    CYCLE,
+    TAU,
+    XOROP
+};
+
+int main(int argc, char *argv[])
+{
+    enum group_op_type type;
+    char *endptr;
+    int Case,n;
+
+    if(argc < 2)
+    {
+        fprintf(stderr,"%s\n",
+                "Need group operation type");
+        exit(1);
+    }
+
+    if(strcmp(argv[1],"pflip")==0)
+        type = PFLIP;
+    else if(strcmp(argv[1],"cycle")==0)
+        type = CYCLE;
+    else if(strcmp(argv[1],"tau")==0)
+        type = TAU;
+    else if(strcmp(argv[1],"xorop")==0)
+        type = XOROP;
+    else
+    {
+        fprintf(stderr,"%s\n","Undefined group op type");
+        exit(1);
+    }
+
+    if(argc < 3 || argv[2][0] == '\0')
+    {
+        fprintf(stderr,"%s\n","Op case required");
+        exit(1);
+    }
+
+    if(argc < 4 || argv[3][0] == '\0')
+    {
+        fprintf(stderr,"%s\n","Integer required");
+        exit(1);
+    }
+
+    Case = strtol(argv[2],&endptr,0);
+    if(*endptr != '\0')
+    {
+        fprintf(stderr,"%s: %s\n","Invalid case value",argv[2]);
+        exit(1);
+    }
+
+    n = strtol(argv[3],&endptr,0);
+    if(*endptr != '\0')
+    {
+        fprintf(stderr,"%s: %s\n","Invalid graph value",argv[3]);
+        exit(1);
+    }
+
+    switch(type){
+        case PFLIP:
+            printf("0x%08x\n",symmetry(n,Case % 4,0,0,0));
+            break;
+        case CYCLE:
+            printf("0x%08x\n",symmetry(n,0,Case % 3,0,0));
+            break;
+        case TAU:
+            printf("0x%08x\n",symmetry(n,0,0,Case % 2,0));
+            break;
+        case XOROP:
+            printf("0x%08x\n",symmetry(n,0,0,0,1 << (Case % 4)));
+            break;
+    }
+}
+#endif

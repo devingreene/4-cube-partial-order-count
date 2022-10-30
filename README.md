@@ -8,6 +8,11 @@ To clean up the object files as well as the binaries, do this.
 
 <tt>$ make clean</tt>
 
+Unit testing on the group operations used in the main routine can be done as follows.
+
+<tt>$ make test</tt>
+<tt>$ ./tester.py
+
 # What This Software Computes
 
 Consider the set of cube-shaped directed graphs, with nodes at the vertices and arrows at the edges.  We say that a graph is <i>acyclic</i> if there is no path of non-zero length along the edges which respects the direction of the arrows and returns to the starting point of the path.  We say that two graphs are isomorphic if one can be transformed to the other via a cube isometry [1].  To output a complete list of acyclic directed graphs, with only one member from each isomorphism class, enter the following command in a shell. 
@@ -23,4 +28,3 @@ This project was motivated mostly by a similar analysis done with the 3-cube in 
 [2] Kristina Crona, Alex Gavryushkin, Devin Greene, Niko Beerenwinkel (2018) Inferring genetic interactions from comparative fitness data.  eLife 2017;6:e28629 doi: 10.7554/eLife.28629 
 
 [3] https://github.com/devingreene/3-cube-partial-order-count.git
-
