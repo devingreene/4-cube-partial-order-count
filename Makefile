@@ -14,18 +14,14 @@ ifdef COVERAGE
 OPTIMIZATION_OPT =
 endif
 
-ifdef STANLEY
-FILTER = filter_stanley
-else
-FILTER = filter
-endif
-
 WARNINGS = -Wall -Wextra
 
-printAllIsoPoz4 : int2table.c IsPoset.c main.c symmetries4.c $(FILTER).c
+printAllIsoPoz4 : int2table.c IsPoset.c main.c symmetries4.c filter.c
+	cc $(WARNINGS) $(CFLAGS) $(OPTIMIZATION_OPT) $^ -o $@ $(COVERAGE)
+stanleycount : int2table.c IsPoset.c main.c symmetries4.c filter_stanley.c
 	cc $(WARNINGS) $(CFLAGS) $(OPTIMIZATION_OPT) $^ -o $@ $(COVERAGE)
 unittest : symmetries4.c
 	cc -D$(TEST) $(WARNINGS) $(CFLAGS) $(OPTIMIZATION_OPT) $^ -o $@ $(COVERAGE)
 
 clean:
-	rm -f printAllIsoPoz4 unittest
+	rm -f printAllIsoPoz4 stanleycount unittest

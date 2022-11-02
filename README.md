@@ -1,6 +1,6 @@
 # Building
 
-For best results (and least irritation), create a directory or folder with a name of your choosing, and clone this repository in that directory.  The following command executed with your new directory will build, along with object files, the binary of interest: <tt>printAllIsoPoz3</tt>  (Note, '$' is the shell prompt.) 
+For best results (and least irritation), create a directory or folder with a name of your choosing, and clone this repository in that directory.  The following command executed in your new directory will build the binaries of interest: <tt>printAllIsoPoz4</tt> and <tt>stanleycount</tt>. (Note, '$' is the shell prompt.) 
 
 <tt>$ make</tt>
 
@@ -8,17 +8,21 @@ To clean up the object files as well as the binaries, do this.
 
 <tt>$ make clean</tt>
 
-Unit testing on the group operations used in the main routine can be done as follows.
+Unit testing is done as follows:
 
 <tt>$ make test</tt>
 
-<tt>$ ./tester.py</tt>
+<tt>$ ./unitest</tt>
 
 # What This Software Computes
 
 Consider the set of cube-shaped directed graphs, with nodes at the vertices and arrows at the edges.  We say that a graph is <i>acyclic</i> if there is no path of non-zero length along the edges which respects the direction of the arrows and returns to the starting point of the path.  We say that two graphs are isomorphic if one can be transformed to the other via a cube isometry [1].  To output a complete list of acyclic directed graphs, with only one member from each isomorphism class, enter the following command in a shell. 
 
 <tt>$ ./printAllIsoPoz4</tt>
+
+To count the number of directed graphs which are partially ordered set (posets), without regard to isomorphism, run the following command.
+
+<tt>$ ./stanleycount</tt>
 
 Please read the comments in <tt>main.c</tt> for an explanation of the encoding of these graphs.
 

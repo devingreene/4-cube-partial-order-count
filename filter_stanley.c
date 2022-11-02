@@ -5,32 +5,22 @@
  */
 
 #include"headers.h"
-#include<signal.h>
 #include<assert.h>
 
 #define G 384 // Cardinality of 4-cube group
-#define START_Q4 0x0
-
-#ifndef NQ4
-/* Number of graphs with 0000 source */
-#define NQ4 0X10000000
-#endif
 
 extern void int2table(ui n);
 extern int IsPoset(void);
 extern ui symmetry(ui graph,uch pflip,uch tcycle,uch tau,uch xorop);
+extern uch *checklist;
 ui graph;
-
-void handler(void){
-    fprintf(stderr,"At %07x\n",graph);
-}
 
 int IsBaseSource(ui graph){
     return !(0x01010101&graph);
 }
 
 /* We loop over graphs with 0000 as a source.  So we can encode our graphs
-   with 28 bit words.  The following two functions convert back and forth 
+   with 28 bit words.  The following two functions convert back and forth
    from the 28 bit representation to the 32 bit one.*/
 ui fixbp2source(ui graph){
     ui a,b,c;
@@ -59,11 +49,7 @@ ui invfixbp2source(ui graph){
 }
 
 
-void filter (char *checklist){
-    struct sigaction sa;
-    sa.sa_handler=(void(*)(int))handler;
-    sigaction(SIGQUIT,&sa,0);
-
+void filter (ui start, ui end){
     ui Graph,tgraph;
     /* Flip through all symmetries.  We use the following
      * observations from basic group theory:
@@ -77,8 +63,8 @@ void filter (char *checklist){
 
     ui count = 0;
     ui nfge; // number of fixing group elements
-    for(graph=START_Q4;graph<NQ4;graph++){
-        if(likely(checklist[graph])) continue;
+    for(graph=start;graph<end;graph++){
+        if(likely(isset(graph))) continue;
         Graph = fixbp2source(graph);
         int2table(Graph);
         if(likely(!IsPoset())) continue;
@@ -95,7 +81,7 @@ void filter (char *checklist){
                         if(unlikely(IsBaseSource(tgraph))){
                             tgraph = invfixbp2source(tgraph);
                             if(tgraph > graph)
-                                checklist[tgraph]=1;
+                                setbit(tgraph);
                         }
                     }
         assert(G % nfge == 0);
