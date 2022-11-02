@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo ---------------------------
+echo Testing group operations...
+./unittest_groupops.py
+
+echo ---------------------------
+echo Testing poset detector...
+./bin_posets
+echo ---------------------------
